@@ -61,11 +61,11 @@ public class PhoneAmbiguitiesProcessor {
 
             if (isTwoDigitAndDividedByTen(s) && i + 1 < symbols.size()) {
                 if (isOneDigitNoneZero(symbols.get(i + 1))) {
-                    phones.add(stringCollector.collectString(symbols, i, true));
+                    phones.add(stringCollector.collectString(symbols, i, CombinationType.DIVIDED_BY_TEN));
                 }
             }
             if (isTwoDigitAndNotDividedByTen(s)) {
-                phones.add(stringCollector.collectString(symbols, i, false));
+                phones.add(stringCollector.collectString(symbols, i, CombinationType.NOT_DIVIDED_BY_TEN));
             }
         }
     }

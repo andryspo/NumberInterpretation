@@ -1,6 +1,8 @@
 package com.agiliway.service.impl.ambiguities;
 
 
+import com.agiliway.domain.CombinationType;
+
 import java.util.List;
 
 /**
@@ -8,29 +10,40 @@ import java.util.List;
  */
 public class AmbiguitiesStringCollector {
 
-    public String collectString(List<String> symbols, int index, boolean isDividedByTen) {
+    public String collectString(List<String> numberParts, int combinationIndex, CombinationType combinationType) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int j = 0; j < symbols.size(); j++) {
-            if (j != index) {
-                stringBuilder.append(symbols.get(j));
+        for (int i = 0; i < numberParts.size(); i++) {
+            //find index of combination
+            if (i != combinationIndex) {
+                stringBuilder.append(numberParts.get(i));
             } else {
-                if (isDividedByTen) {
-                    stringBuilder
-                            .append(symbols.get(j).charAt(0))
-                            .append(symbols.get(j + 1));
-                    j++;
-                } else {
-                    stringBuilder
-                            .append(symbols.get(j).charAt(0))
-                            .append("0")
-                            .append(symbols.get(j).charAt(1));
+                switch (combinationType) {
+                    case DIVIDED_BY_TEN:
+                        collectIfDividedByTen(numberParts, stringBuilder, i);
+                        i++;
+                        break;
+                    case NOT_DIVIDED_BY_TEN:
+                        collectIfNotDividedByTen(numberParts, stringBuilder, i);
+                        break;
                 }
-
             }
         }
 
         return stringBuilder.toString();
+    }
+
+    private void collectIfNotDividedByTen(List<String> symbols, StringBuilder stringBuilder, int i) {
+        stringBuilder
+                .append(symbols.get(i).charAt(0))
+                .append("0")
+                .append(symbols.get(i).charAt(1));
+    }
+
+    private void collectIfDividedByTen(List<String> symbols, StringBuilder stringBuilder, int i) {
+        stringBuilder
+                .append(symbols.get(i).charAt(0))
+                .append(symbols.get(i + 1));
     }
 
 }

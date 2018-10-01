@@ -6,14 +6,21 @@ import com.agiliway.service.impl.io.ConsoleDataReader;
 import com.agiliway.service.impl.io.ConsoleDataWriter;
 import com.agiliway.service.impl.validator.AdvanceLevelValidatorImpl;
 import com.agiliway.service.impl.validator.PhoneFormatValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class Main {
 
+    //print it to finish an application
     private static final String FINISH_FLAG = "end";
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) throws IOException {
+        LOGGER.info("Starting application: ");
+
         ConsoleDataReader reader = new ConsoleDataReader();
         ConsoleDataWriter writer = new ConsoleDataWriter();
         AdvanceLevelNumberValidator advanceLevelNumberValidator = new AdvanceLevelValidatorImpl();
@@ -30,7 +37,10 @@ public class Main {
             } catch (WrongDataFormatException e) {
                 writer.print("bad phone format: " + currentLine);
             }
+            writer.print("\nEnter phone number: \n");
         }
+
+        LOGGER.info("Finishing application!!!");
 
     }
 
