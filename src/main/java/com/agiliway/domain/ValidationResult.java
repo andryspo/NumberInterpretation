@@ -1,5 +1,8 @@
 package com.agiliway.domain;
 
+/**
+ * class contains all information about validation result.
+ */
 public class ValidationResult {
 
     private Boolean isValid;

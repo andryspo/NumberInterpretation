@@ -1,5 +1,10 @@
 package com.agiliway.domain;
 
+/**
+ * class contains information about ambiguity
+ * value - ambiguity string for example (20 or 25)
+ * combinationType - type of ambiguity
+ */
 public class Combination {
 
     private String value;

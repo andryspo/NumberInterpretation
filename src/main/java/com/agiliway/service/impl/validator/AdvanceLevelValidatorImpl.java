@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * class responsible for validating phone numbers by base rules and rules of ambiguities
+ */
 public class AdvanceLevelValidatorImpl implements AdvanceLevelNumberValidator {
 
     private BaseLevelNumberValidator baseLevelNumberValidator;
