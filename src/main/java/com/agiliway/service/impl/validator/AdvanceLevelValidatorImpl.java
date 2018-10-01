@@ -5,17 +5,18 @@ import com.agiliway.domain.ValidationResult;
 import com.agiliway.exception.WrongNumberException;
 import com.agiliway.service.AdvanceLevelNumberValidator;
 import com.agiliway.service.BaseLevelNumberValidator;
+import com.agiliway.service.impl.ambiguities.PhoneAmbiguitiesProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class AdvanceLevelValidatorImplLevel implements AdvanceLevelNumberValidator {
+public class AdvanceLevelValidatorImpl implements AdvanceLevelNumberValidator {
 
     private BaseLevelNumberValidator baseLevelNumberValidator;
     private PhoneAmbiguitiesProcessor phoneAmbiguitiesProcessor;
 
-    public AdvanceLevelValidatorImplLevel() {
+    public AdvanceLevelValidatorImpl() {
         baseLevelNumberValidator = new BaseLevelValidatorImpl();
         phoneAmbiguitiesProcessor = new PhoneAmbiguitiesProcessor();
     }

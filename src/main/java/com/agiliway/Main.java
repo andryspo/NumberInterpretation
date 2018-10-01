@@ -4,7 +4,7 @@ import com.agiliway.exception.WrongDataFormatException;
 import com.agiliway.service.AdvanceLevelNumberValidator;
 import com.agiliway.service.impl.io.ConsoleDataReader;
 import com.agiliway.service.impl.io.ConsoleDataWriter;
-import com.agiliway.service.impl.validator.AdvanceLevelValidatorImplLevel;
+import com.agiliway.service.impl.validator.AdvanceLevelValidatorImpl;
 import com.agiliway.service.impl.validator.PhoneFormatValidator;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ConsoleDataReader reader = new ConsoleDataReader();
         ConsoleDataWriter writer = new ConsoleDataWriter();
-        AdvanceLevelNumberValidator advanceLevelNumberValidator = new AdvanceLevelValidatorImplLevel();
+        AdvanceLevelNumberValidator advanceLevelNumberValidator = new AdvanceLevelValidatorImpl();
         PhoneFormatValidator formatValidator = new PhoneFormatValidator();
         String currentLine;
 
