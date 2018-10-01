@@ -5,7 +5,8 @@ import com.agiliway.domain.ValidationResult;
 import com.agiliway.exception.WrongNumberException;
 import com.agiliway.service.AdvanceLevelNumberValidator;
 import com.agiliway.service.BaseLevelNumberValidator;
-import com.agiliway.service.impl.ambiguities.PhoneAmbiguitiesProcessor;
+
+import com.agiliway.service.impl.ambiguities.PhoneAmbiguitiesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +22,11 @@ public class AdvanceLevelValidatorImpl implements AdvanceLevelNumberValidator {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdvanceLevelValidatorImpl.class);
 
     private BaseLevelNumberValidator baseLevelNumberValidator;
-    private PhoneAmbiguitiesProcessor phoneAmbiguitiesProcessor;
+    private PhoneAmbiguitiesService phoneAmbiguitiesProcessor;
 
     public AdvanceLevelValidatorImpl() {
         baseLevelNumberValidator = new BaseLevelValidatorImpl();
-        phoneAmbiguitiesProcessor = new PhoneAmbiguitiesProcessor();
+        phoneAmbiguitiesProcessor = new PhoneAmbiguitiesService();
     }
 
     @Override

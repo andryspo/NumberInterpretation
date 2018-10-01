@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * class that process all possible ambiguities from phone
  */
-public class PhoneAmbiguitiesProcessor {
+public class PhoneAmbiguitiesService {
 
     private AmbiguitiesStringCollector stringCollector = new AmbiguitiesStringCollector();
 
@@ -31,27 +31,31 @@ public class PhoneAmbiguitiesProcessor {
     }
 
     //recursively find all possible ambiguities
-    private void findAllPossibleAmbiguitiesCombination(List<String> symbols, List<Combination> combinations, int combinationIndex, Set<String> phones) {
+    private void findAllPossibleAmbiguitiesCombination(List<String> numberParts, List<Combination> combinations, int combinationIndex, Set<String> phones) {
 
         if (combinationIndex >= combinations.size()) {
             return;
         }
         Combination combination = combinations.get(combinationIndex);
-        findAmbiguitiesPhonesForSymbols(symbols, phones);
-        addNextCombinationToSymbols(symbols, combination);
-        findAllPossibleAmbiguitiesCombination(symbols, combinations, ++combinationIndex, phones);
+        findAmbiguitiesPhonesForSymbols(numberParts, phones);
+
+        addNextCombinationToSymbols(numberParts, combination);
+
+        //updateIndexes
+        //fillListWithAmbiguitiesSymbols(numberParts, combinations);
+        findAllPossibleAmbiguitiesCombination(numberParts, combinations, ++combinationIndex, phones);
     }
 
-    private void addNextCombinationToSymbols(List<String> symbols, Combination combination) {
+    private void addNextCombinationToSymbols(List<String> numberParts, Combination combination) {
+        int index = numberParts.indexOf(combination.getValue());
+
         switch (combination.getCombinationType()) {
             case DIVIDED_BY_TEN:
-                symbols.set(combination.getIndex(),
-                        symbols.get(combination.getIndex()).charAt(0) + symbols.get(combination.getIndex() + 1));
-                symbols.remove(combination.getIndex() + 1);
+                numberParts.set(index, numberParts.get(index).charAt(0) + numberParts.get(index + 1));
+                numberParts.remove(index + 1);
                 break;
             case NOT_DIVIDED_BY_TEN:
-                symbols.set(combination.getIndex(),
-                        symbols.get(combination.getIndex()).charAt(0) + "0" + symbols.get(combination.getIndex()).charAt(1));
+                numberParts.set(index, numberParts.get(index).charAt(0) + "0" + numberParts.get(index).charAt(1));
         }
     }
 

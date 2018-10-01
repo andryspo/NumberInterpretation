@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * class that is responsible for collecting string and forming ambiguities number
  */
-public class AmbiguitiesStringCollector {
+public class    AmbiguitiesStringCollector {
 
     public String collectString(List<String> numberParts, int combinationIndex, CombinationType combinationType) {
         StringBuilder stringBuilder = new StringBuilder();
