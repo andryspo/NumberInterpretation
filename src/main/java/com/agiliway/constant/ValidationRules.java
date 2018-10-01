@@ -12,6 +12,6 @@ public final class ValidationRules {
 
     public static final String FOURTEEN_DIGITS_FIRST_BEGINNING = "00302";
 
-    public static final String FOURTEEN_DIGITS_SECOND_BEGINNING = "003069’";
+    public static final String FOURTEEN_DIGITS_SECOND_BEGINNING = "003069";
 
 }

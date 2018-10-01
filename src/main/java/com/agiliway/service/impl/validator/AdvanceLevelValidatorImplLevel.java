@@ -32,7 +32,7 @@ public class AdvanceLevelValidatorImplLevel implements AdvanceLevelNumberValidat
                 baseLevelNumberValidator.validate(number);
                 validationResult = new ValidationResult(true, Messages.VALID_PHONE, number);
             } catch (WrongNumberException e) {
-               // e.printStackTrace();
+                e.printStackTrace();
                 validationResult = new ValidationResult(false, Messages.INVALID_PHONE, number);
             }
             results.add(validationResult);

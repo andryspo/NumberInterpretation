@@ -32,6 +32,7 @@ public class BaseLevelValidatorImpl implements BaseLevelNumberValidator {
                         !phone.startsWith(ValidationRules.FOURTEEN_DIGITS_SECOND_BEGINNING)) {
                     throw new WrongNumberException("invalid phone number beginning: " + phone);
                 }
+                break;
             default:
                 //so if length is not equal to 10 or 14 validation fail
                 throw new WrongNumberException("invalid phone number length: " + phone.length());
