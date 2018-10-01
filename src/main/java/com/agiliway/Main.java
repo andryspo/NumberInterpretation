@@ -7,8 +7,7 @@ import com.agiliway.service.impl.io.ConsoleDataReader;
 import com.agiliway.service.impl.io.ConsoleDataWriter;
 import com.agiliway.service.impl.validator.AdvanceLevelValidatorImpl;
 import com.agiliway.service.impl.validator.PhoneFormatValidatorImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
@@ -17,7 +16,7 @@ public class Main {
     //print it to finish an application
     private static final String FINISH_FLAG = "end";
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException {
         LOGGER.info("Starting application: ");

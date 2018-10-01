@@ -2,15 +2,20 @@ package com.agiliway.service.impl.ambiguities;
 
 
 import com.agiliway.domain.CombinationType;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 /**
  * class that is responsible for collecting string and forming ambiguities number
  */
-public class    AmbiguitiesStringCollector {
+public class AmbiguitiesStringCollector {
+
+    private static final Logger LOGGER = Logger.getLogger(AmbiguitiesStringCollector.class);
 
     public String collectString(List<String> numberParts, int combinationIndex, CombinationType combinationType) {
+        LOGGER.info("start string collecting");
+
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < numberParts.size(); i++) {
@@ -29,6 +34,7 @@ public class    AmbiguitiesStringCollector {
                 }
             }
         }
+        LOGGER.info("finish collecting");
 
         return stringBuilder.toString();
     }

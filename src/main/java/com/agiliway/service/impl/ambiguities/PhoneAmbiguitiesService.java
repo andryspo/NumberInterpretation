@@ -2,6 +2,7 @@ package com.agiliway.service.impl.ambiguities;
 
 import com.agiliway.domain.Combination;
 import com.agiliway.domain.CombinationType;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -10,10 +11,11 @@ import java.util.*;
  */
 public class PhoneAmbiguitiesService {
 
+    private static final Logger LOGGER = Logger.getLogger(PhoneAmbiguitiesService.class);
     private AmbiguitiesStringCollector stringCollector = new AmbiguitiesStringCollector();
 
     public Set<String> processAmbiguities(String phone) {
-
+        LOGGER.info("start searching phone ambiguities");
         //set of phones that will be validated
         Set<String> phones = new LinkedHashSet<>();
         //list of symbols inputed by user
@@ -23,30 +25,27 @@ public class PhoneAmbiguitiesService {
         //add phone
         phones.add(getAllDigits(phone));
         //find all symbols that could be Ambiguities
-        fillListWithAmbiguitiesSymbols(symbols, combinations);
+        findAllPossibleCombinations(symbols, combinations);
         //find all phone number combinations
         findAllPossibleAmbiguitiesCombination(symbols, combinations, 0, phones);
 
+        LOGGER.info("finish searching phone anbiguities");
         return phones;
     }
 
     //recursively find all possible ambiguities
     private void findAllPossibleAmbiguitiesCombination(List<String> numberParts, List<Combination> combinations, int combinationIndex, Set<String> phones) {
-
         if (combinationIndex >= combinations.size()) {
             return;
         }
         Combination combination = combinations.get(combinationIndex);
-        findAmbiguitiesPhonesForSymbols(numberParts, phones);
-
-        addNextCombinationToSymbols(numberParts, combination);
-
-        //updateIndexes
-        //fillListWithAmbiguitiesSymbols(numberParts, combinations);
+        researchNumberAmbiguities(numberParts, phones);
+        applyNextCombination(numberParts, combination);
         findAllPossibleAmbiguitiesCombination(numberParts, combinations, ++combinationIndex, phones);
     }
 
-    private void addNextCombinationToSymbols(List<String> numberParts, Combination combination) {
+    //insert combination
+    private void applyNextCombination(List<String> numberParts, Combination combination) {
         int index = numberParts.indexOf(combination.getValue());
 
         switch (combination.getCombinationType()) {
@@ -59,22 +58,24 @@ public class PhoneAmbiguitiesService {
         }
     }
 
-    private void findAmbiguitiesPhonesForSymbols(List<String> symbols, Set<String> phones) {
-        for (int i = 0; i < symbols.size(); i++) {
-            String s = symbols.get(i);
+    //collect all possible phones from numberParts
+    private void researchNumberAmbiguities(List<String> numberParts, Set<String> phones) {
+        for (int i = 0; i < numberParts.size(); i++) {
+            String s = numberParts.get(i);
 
-            if (isTwoDigitAndDividedByTen(s) && i + 1 < symbols.size()) {
-                if (isOneDigitNoneZero(symbols.get(i + 1))) {
-                    phones.add(stringCollector.collectString(symbols, i, CombinationType.DIVIDED_BY_TEN));
+            if (isTwoDigitAndDividedByTen(s) && i + 1 < numberParts.size()) {
+                if (isOneDigitNoneZero(numberParts.get(i + 1))) {
+                    phones.add(stringCollector.collectString(numberParts, i, CombinationType.DIVIDED_BY_TEN));
                 }
             }
             if (isTwoDigitAndNotDividedByTen(s)) {
-                phones.add(stringCollector.collectString(symbols, i, CombinationType.NOT_DIVIDED_BY_TEN));
+                phones.add(stringCollector.collectString(numberParts, i, CombinationType.NOT_DIVIDED_BY_TEN));
             }
         }
     }
 
-    private void fillListWithAmbiguitiesSymbols(List<String> symbols, List<Combination> combinations) {
+    //collect all numbers that that could be abigueded
+    private void findAllPossibleCombinations(List<String> symbols, List<Combination> combinations) {
         for (int i = 0; i < symbols.size(); i++) {
             String s = symbols.get(i);
             if (isTwoDigitAndDividedByTen(s) && i + 1 < symbols.size()) {
@@ -94,23 +95,24 @@ public class PhoneAmbiguitiesService {
     }
 
     private boolean isTwoDigitAndNotDividedByTen(String s) {
-        return isTwoDigitOrTen(s) && Integer.valueOf(s) % 10 != 0;
+        return isAmbiguedTwoDigit(s) && Integer.valueOf(s) % 10 != 0;
 
     }
 
     private boolean isTwoDigitAndDividedByTen(String s) {
 
-        return isTwoDigitOrTen(s) && Integer.valueOf(s) % 10 == 0;
+        return isAmbiguedTwoDigit(s) && Integer.valueOf(s) % 10 == 0;
 
     }
 
-    private boolean isTwoDigitOrTen(String s) {
-        if (s.length() != 2) {
+    private boolean isAmbiguedTwoDigit(String s) {
+        if (s.length() != 2 ) {
             return false;
         }
+        int number = Integer.valueOf(s);
 
-        //10 cannot provide ambiguities
-        return !s.equals("10");
+        //digits from 10 to 19 cannot provide ambiguities
+        return number < 10 || number >= 20;
     }
 
     private List<String> pronouncedSymbols(String phone) {

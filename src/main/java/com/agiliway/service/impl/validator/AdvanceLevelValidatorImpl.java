@@ -5,10 +5,9 @@ import com.agiliway.domain.ValidationResult;
 import com.agiliway.exception.WrongNumberException;
 import com.agiliway.service.AdvanceLevelNumberValidator;
 import com.agiliway.service.BaseLevelNumberValidator;
-
 import com.agiliway.service.impl.ambiguities.PhoneAmbiguitiesService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.Set;
  */
 public class AdvanceLevelValidatorImpl implements AdvanceLevelNumberValidator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdvanceLevelValidatorImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(AdvanceLevelValidatorImpl.class);
 
     private BaseLevelNumberValidator baseLevelNumberValidator;
     private PhoneAmbiguitiesService phoneAmbiguitiesProcessor;
@@ -44,9 +43,10 @@ public class AdvanceLevelValidatorImpl implements AdvanceLevelNumberValidator {
                 //validate each phone
                 baseLevelNumberValidator.validate(number);
                 validationResult = new ValidationResult(true, Messages.VALID_PHONE, number, interpretationCounter[0]);
-                LOGGER.info("phone is valid");
+                LOGGER.info("phone" + number + "is valid");
             } catch (WrongNumberException e) {
                 validationResult = new ValidationResult(false, Messages.INVALID_PHONE, number, interpretationCounter[0]);
+                LOGGER.error("phone" + number + "is invalidvalid");
                 LOGGER.warn(e.getMessage());
             }
             results.add(validationResult);
