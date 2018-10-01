@@ -36,16 +36,17 @@ public class AdvanceLevelValidatorImpl implements AdvanceLevelNumberValidator {
 
         Set<String> phones = phoneAmbiguitiesProcessor.processAmbiguities(phoneNumber);
         List<ValidationResult> results = new ArrayList<>();
-
+        final int[] interpretationCounter = {0};
         phones.forEach(number -> {
             ValidationResult validationResult;
+            interpretationCounter[0]++;
             try {
                 //validate each phone
                 baseLevelNumberValidator.validate(number);
-                validationResult = new ValidationResult(true, Messages.VALID_PHONE, number);
+                validationResult = new ValidationResult(true, Messages.VALID_PHONE, number, interpretationCounter[0]);
                 LOGGER.info("phone is valid");
             } catch (WrongNumberException e) {
-                validationResult = new ValidationResult(false, Messages.INVALID_PHONE, number);
+                validationResult = new ValidationResult(false, Messages.INVALID_PHONE, number, interpretationCounter[0]);
                 LOGGER.warn(e.getMessage());
             }
             results.add(validationResult);

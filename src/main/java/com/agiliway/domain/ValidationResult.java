@@ -11,10 +11,13 @@ public class ValidationResult {
 
     private String phone;
 
-    public ValidationResult(Boolean isValid, String message, String phone) {
+    private int interpretationNumber;
+
+    public ValidationResult(Boolean isValid, String message, String phone, int interpretationNumber) {
         this.isValid = isValid;
         this.message = message;
         this.phone = phone;
+        this.interpretationNumber = interpretationNumber;
     }
 
     public Boolean getValid() {
@@ -39,5 +42,13 @@ public class ValidationResult {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getInterpretationNumber() {
+        return interpretationNumber;
+    }
+
+    public void setInterpretationNumber(int interpretationNumber) {
+        this.interpretationNumber = interpretationNumber;
     }
 }

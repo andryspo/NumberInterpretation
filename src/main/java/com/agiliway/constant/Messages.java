@@ -6,4 +6,6 @@ public final class Messages {
 
     public static final String INVALID_PHONE = "[phone number: INVALID]";
 
+    public static final String INTERPRETATION = "Interpretation";
+
 }

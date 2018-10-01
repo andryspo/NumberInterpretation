@@ -1,6 +1,8 @@
 package com.agiliway.service.impl.validator;
 
 import com.agiliway.exception.WrongDataFormatException;
+import com.agiliway.service.PhoneFormatValidator;
+import com.agiliway.service.impl.ambiguities.PhoneAmbiguitiesService;
 
 import java.util.Arrays;
 
@@ -8,8 +10,9 @@ import java.util.Arrays;
  * validate data if it is in a valid format
  * for phone if it contains not more then 3 digits separated by space symbol
  */
-public class PhoneFormatValidator {
+public class PhoneFormatValidatorImpl implements PhoneFormatValidator {
 
+    @Override
     public void validate(String phone) throws WrongDataFormatException {
         //to avoid spaces in begin and end
         phone = phone.trim();

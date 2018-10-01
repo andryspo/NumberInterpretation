@@ -2,10 +2,11 @@ package com.agiliway;
 
 import com.agiliway.exception.WrongDataFormatException;
 import com.agiliway.service.AdvanceLevelNumberValidator;
+import com.agiliway.service.PhoneFormatValidator;
 import com.agiliway.service.impl.io.ConsoleDataReader;
 import com.agiliway.service.impl.io.ConsoleDataWriter;
 import com.agiliway.service.impl.validator.AdvanceLevelValidatorImpl;
-import com.agiliway.service.impl.validator.PhoneFormatValidator;
+import com.agiliway.service.impl.validator.PhoneFormatValidatorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +25,10 @@ public class Main {
         ConsoleDataReader reader = new ConsoleDataReader();
         ConsoleDataWriter writer = new ConsoleDataWriter();
         AdvanceLevelNumberValidator advanceLevelNumberValidator = new AdvanceLevelValidatorImpl();
-        PhoneFormatValidator formatValidator = new PhoneFormatValidator();
+        PhoneFormatValidator formatValidator = new PhoneFormatValidatorImpl();
         String currentLine;
 
         writer.print("Enter phone number: \n");
-
 
         while (!(currentLine = reader.readLine()).equals(FINISH_FLAG)) {
             try {

@@ -1,15 +1,17 @@
 package com.agiliway.service.validator;
 
 import com.agiliway.exception.WrongDataFormatException;
-import com.agiliway.service.impl.validator.PhoneFormatValidator;
+
+import com.agiliway.service.PhoneFormatValidator;
+import com.agiliway.service.impl.validator.PhoneFormatValidatorImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PhoneFormatValidatorTest {
+public class PhoneFormatValidatorImplTest {
 
-    private PhoneFormatValidator phoneFormatValidator = new PhoneFormatValidator();
+    private PhoneFormatValidator phoneFormatValidator = new PhoneFormatValidatorImpl();
 
     @Test
     public void validateCorrectPhone() throws WrongDataFormatException {
