@@ -23,7 +23,7 @@ public class PhoneAmbiguitiesService {
         //list of symbols that could be Ambiguities for example 25 or sequence 20 5
         List<Combination> combinations = new ArrayList<>();
         //add phone
-        phones.add(getAllDigits(phone));
+        phones.add(PhoneCollector.collectToPhone(phone));
         //find all symbols that could be Ambiguities
         findAllPossibleCombinations(symbols, combinations);
         //find all phone number combinations
@@ -120,8 +120,8 @@ public class PhoneAmbiguitiesService {
         return new ArrayList<>(Arrays.asList(phone.split("\\s+")));
     }
 
-    private String getAllDigits(String phone) {
-        return phone.replaceAll("\\D+", "");
-    }
+//    private String getAllDigits(String phone) {
+//        return phone.replaceAll("\\D+", "");
+//    }
 
 }
